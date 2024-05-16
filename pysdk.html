@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <title>Menous DB</title>
+
+    <style>
+        .navbar-brand h2{
+            font-weight: 100;
+        }
+        .navbar{
+            background-color: #191919;
+        }
+        #nav-sidebar a
+        {
+            border-bottom: #191919 1px solid;
+            margin-right:10px;
+        }
+
+        #nav-sidebar a:hover
+        {
+            border-bottom: white 1px solid;
+        }
+        #nav-sidebar .btn{
+            border-bottom: white 1px solid;
+        }
+
+        .custom-container{
+            padding:20px;
+            width:60%;
+            margin-left:20%;
+            margin-top:50px;
+        }
+        @media screen and (max-width: 600px) {
+
+            .custom-container{
+                width:90%;
+                margin-left: 5%;
+            }
+        }
+        
+        
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+</head>
+<body style="background-color: #ecf0f1;">
+    <nav class="navbar navbar-xxl navbar-dark navbar-expand-xxl">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="" height="50" width="50">
+              </a>
+            <a class="navbar-brand" href="index.html">
+                <h2>Menous DB</h2>
+              </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            
+            <div class="navbar-nav" id="nav-sidebar">
+                <a class="nav-link active" href="downloads.html">Downloads</a>
+                <a class="nav-link active" href="pysdk.html">Python SDK</a>
+                <a class="nav-link active" href="documentation.html">Documentation</a>
+                <a class="btn btn-outline-light" href="https://github.com/MenousTech/Menous-DB" role="button"><i style="font-size:20px;margin-left:10px;margin-right:10px;"class="bi bi-github"></i>Source Code</a>
+            </div>
+              
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="custom-container">
+<h1 id="introduction">Introduction</h1>
+<p>Menous DB is a simple and elegant key value database. It uses a structured file system to store key values. The database is written in python and can be used directly in python using the menousdb pip package.</p>
+<h1 id="installation">Installation</h1>
+<p>You can install the menousdb module by using the pip package manager. You can install the package manager on all platforms by using the following commands:</p>
+<pre><code>For Linux <span class="hljs-keyword">use</span> the <span class="hljs-keyword">following</span> commands
+
+$ sudo apt <span class="hljs-keyword">update</span>
+$ sudo apt <span class="hljs-keyword">upgrade</span>
+$ sudo apt-<span class="hljs-keyword">get</span> <span class="hljs-keyword">install</span> python3-pip
+</code></pre><pre><code>For Mac OS <span class="hljs-keyword">use</span> homebrew <span class="hljs-keyword">to</span> <span class="hljs-keyword">install</span> pip
+
+$ brew <span class="hljs-keyword">install</span> python3-pip
+</code></pre><p>Next we will use the pip package manager to install the library. Make sure you have pip set up properly and you can access it through your terminal window.</p>
+<pre><code>(Windows)
+
+$ pip <span class="hljs-keyword">install</span> menousdb 
+
+(Mac OS <span class="hljs-keyword">and</span> Linux)
+
+$ pip3 <span class="hljs-keyword">install</span> menousdb
+</code></pre><h1 id="documentation">Documentation</h1>
+<h3 id="importing-the-module">Importing the module</h3>
+<p>To import the menousdb import simply use</p>
+<pre><code class="lang-python"><span class="hljs-keyword">from</span> menousdb <span class="hljs-keyword">import</span> *
+</code></pre>
+<h3 id="initializing-the-database">Initializing the database</h3>
+<p>To create a database from scratch use:</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Using the imported class from the import statement</span>
+
+db = MenousDB(
+    url=<span class="hljs-string">"http://localhost:5555/"</span>,
+    key=<span class="hljs-string">"YOUR API KEY"</span>,
+    database=<span class="hljs-string">"DATABASE"</span>
+)
+
+<span class="hljs-comment"># Checking if the database exists</span>
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> db.checkDbExists():
+    <span class="hljs-comment"># If not create the database</span>
+    db.createDb()
+</code></pre>
+<h3 id="checking-if-the-database-exists">Checking if the database exists</h3>
+<pre><code class="lang-python"># isCreated <span class="hljs-keyword">is</span> either <span class="hljs-literal">True</span> <span class="hljs-keyword">or</span> <span class="hljs-literal">False</span>
+isCreated = db.checkDbExists()
+</code></pre>
+<h3 id="reading-the-entire-database">Reading the entire database</h3>
+<p>To read the entire database we will use the readDb method. The readDb method returns a dictionary that can be converted to a dataframe. </p>
+<pre><code class="lang-python"><span class="hljs-class"><span class="hljs-keyword">data</span> = db.readDb()</span>
+</code></pre>
+<h3 id="deleting-the-entire-database">Deleting the entire database</h3>
+<p>To delete the entire database we will use the deleteDb method.</p>
+<pre><code class="lang-python"><span class="hljs-keyword">if</span> <span class="hljs-keyword">db</span>.checkDbExists():
+    <span class="hljs-keyword">db</span>.deleteDb()
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Database not found"</span>)
+</code></pre>
+<h3 id="creating-a-new-table">Creating a new table</h3>
+<p>To create a new table, the parameters are the name of the table and the attributes of the new table. The attributes parameter must be a list of strings.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Defining the table name and attributes</span>
+table_name = <span class="hljs-string">"test"</span>
+<span class="hljs-keyword">attributes</span> = [<span class="hljs-string">"name"</span>, <span class="hljs-string">"age"</span>, <span class="hljs-string">"gender"</span>]
+
+<span class="hljs-comment"># Creating a new table using the defined variable</span>
+db.createTable(table_name, <span class="hljs-keyword">attributes</span>)
+</code></pre>
+<h3 id="checking-if-a-table-exists">Checking if a table exists</h3>
+<p>To check if a table exists you can use the following which will return  a boolean value of True or False.</p>
+<pre><code class="lang-python"><span class="hljs-comment"># Defining the table name</span>
+<span class="hljs-attr">table_name</span> = <span class="hljs-string">"test"</span>
+<span class="hljs-comment"># Cheking the table exists</span>
+<span class="hljs-attr">isCreate</span> = db.checkTableExists(table_name)
+</code></pre>
+<h3 id="inserting-values-into-the-database">Inserting values into the database</h3>
+<p>To insert new values into the table you can use the following code. The parameter values must be a dictionary whose order of keys must exactly match the order of the attributes passed in the creation of the table.</p>
+<pre><code class="lang-python"># Defining <span class="hljs-keyword">table</span> name <span class="hljs-comment">and values</span>
+table_name = test
+values = {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"John Doe"</span>,
+    <span class="hljs-string">"age"</span>:<span class="hljs-string">"15"</span>,
+    <span class="hljs-string">"gender"</span>:<span class="hljs-string">"male"</span>
+}
+
+db.insertIntoTable(
+    <span class="hljs-keyword">table</span>=table_name,
+    values=values
+)
+</code></pre>
+<h3 id="selecting-the-entire-table">Selecting the entire table</h3>
+<p>To get the complete data of a table use the following code:</p>
+<pre><code class="lang-python"><span class="hljs-attr">table_name</span> = <span class="hljs-string">"test"</span>
+<span class="hljs-comment"># Getting all the data in the table</span>
+<span class="hljs-attr">data</span> = db.getTable(table_name)
+</code></pre>
+<h3 id="selecting-values-with-conditions">Selecting Values with conditions</h3>
+<p>To search for values with conditions you can use the following code. The parameters required are the table name and the conditions which will be a dictionary.</p>
+<pre><code class="lang-python"><span class="hljs-attr">table_name</span> = <span class="hljs-string">"test"</span>
+<span class="hljs-attr">conditions</span> = {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"John Doe"</span>
+}
+
+<span class="hljs-comment"># Contains all the values where the name is John Doe</span>
+<span class="hljs-attr">data</span> = db.selectWhere(
+    <span class="hljs-attr">table=</span> table_name,
+    <span class="hljs-attr">conditions=conditions</span>
+)
+</code></pre>
+<h3 id="selecting-columns">Selecting columns</h3>
+<p>To select only specefic columns from the table you can use the following code. The parameters include the table name and a list of names of columns you want to select. </p>
+<pre><code class="lang-python"><span class="hljs-attr">table_name</span> = <span class="hljs-string">"test"</span>
+<span class="hljs-attr">columns</span>=[<span class="hljs-string">"name"</span>,<span class="hljs-string">"age"</span>]
+
+<span class="hljs-comment"># contains all the column values</span>
+<span class="hljs-attr">selectedData</span> = db.selectColumns(table_name, columns)
+</code></pre>
+<h3 id="selecting-columns-with-conditions">Selecting columns with conditions</h3>
+<p>To select columns with conditions you can use the following code. The parameters include the table name, the target columns and the conditions. conditions will be a dictionary and columns will be an array. </p>
+<pre><code class="lang-python"><span class="hljs-title">table_name</span>=<span class="hljs-string">"test"</span>
+<span class="hljs-title">columns</span>=[<span class="hljs-string">"name"</span>,<span class="hljs-string">"age"</span>]
+<span class="hljs-title">conditions</span>={<span class="hljs-string">"name"</span>:<span class="hljs-string">"John Doe"</span>}
+
+<span class="hljs-class"><span class="hljs-keyword">data</span> = db.selectColumnsWhere(
+    <span class="hljs-title">table_name</span>,
+    <span class="hljs-title">columns</span>,
+    <span class="hljs-title">conditions</span>
+)</span>
+</code></pre>
+<h3 id="updating-values">Updating values</h3>
+<p>To update the values in the table we need the conditions and the replacement values. The parameters are the table name, the conditions and the replacement values.</p>
+<pre><code class="lang-python"><span class="hljs-attr">table_name</span> = <span class="hljs-string">"test"</span>
+<span class="hljs-attr">conditions</span> = {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"John Doe"</span>
+}
+<span class="hljs-attr">values</span> = {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"William Smith"</span>
+}
+
+<span class="hljs-comment"># This will replace the value of every row where the </span>
+<span class="hljs-comment"># name is John Doe to William Smith</span>
+db.updateWhere(
+    <span class="hljs-attr">table=table_name,</span>
+    <span class="hljs-attr">conditions=conditions,</span>
+    <span class="hljs-attr">values=values</span>
+)
+</code></pre>
+<h3 id="deleting-values">Deleting values</h3>
+<p>To delete values from a table with conditions use the following code. The parameters are the table name and the conditions.</p>
+<pre><code class="lang-python"><span class="hljs-attr">table_name</span> = <span class="hljs-string">"test"</span>
+<span class="hljs-attr">conditions</span> = {
+    <span class="hljs-string">"name"</span>:<span class="hljs-string">"John Doe"</span>,
+}
+db.deleteWhere(
+    <span class="hljs-attr">table=table_name,</span>
+    <span class="hljs-attr">conditions=conditions</span>
+)
+</code></pre>
+<h3 id="deleting-the-entire-table">Deleting the entire table</h3>
+<p>To delete the entire table just use the deleteTable functions. Its only parameter is the table name.</p>
+<pre><code class="lang-python">table_name=<span class="hljs-string">"test"</span>
+<span class="hljs-keyword">db</span>.deleteTable(table_name)
+</code></pre>
+<h3 id="getting-all-the-databases">Getting all the databases</h3>
+<p>To get a list of all the databases use the following code.</p>
+<pre><code class="lang-python"><span class="hljs-attr">databases</span> = db.getDatabases()
+</code></pre>
+
+
+
+
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
